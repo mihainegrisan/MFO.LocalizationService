@@ -5,19 +5,19 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.API", "src\MFO.StaticDataService.API\MFO.StaticDataService.API.csproj", "{72713272-98C6-4675-A569-E5FB98322B2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.API", "src\MFO.LocalizationService.API\MFO.LocalizationService.API.csproj", "{72713272-98C6-4675-A569-E5FB98322B2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.Application", "src\MFO.StaticDataService.Application\MFO.StaticDataService.Application.csproj", "{AFBF5998-774A-4CD6-BF5E-01BD92475C48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.Application", "src\MFO.LocalizationService.Application\MFO.LocalizationService.Application.csproj", "{AFBF5998-774A-4CD6-BF5E-01BD92475C48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.Domain", "src\MFO.StaticDataService.Domain\MFO.StaticDataService.Domain.csproj", "{4C6172E0-6A67-4DC3-A5B0-78B1FEE312CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.Domain", "src\MFO.LocalizationService.Domain\MFO.LocalizationService.Domain.csproj", "{4C6172E0-6A67-4DC3-A5B0-78B1FEE312CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.Infrastructure", "src\MFO.StaticDataService.Infrastructure\MFO.StaticDataService.Infrastructure.csproj", "{5F5B2F7A-F548-46DA-A54B-A841CFEAE0FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.Infrastructure", "src\MFO.LocalizationService.Infrastructure\MFO.LocalizationService.Infrastructure.csproj", "{5F5B2F7A-F548-46DA-A54B-A841CFEAE0FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.IntegrationTests", "tests\MFO.StaticDataService.IntegrationTests\MFO.StaticDataService.IntegrationTests.csproj", "{E28DFF16-EC46-4A68-BE3F-D58BCB77B1BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.IntegrationTests", "tests\MFO.LocalizationService.IntegrationTests\MFO.LocalizationService.IntegrationTests.csproj", "{E28DFF16-EC46-4A68-BE3F-D58BCB77B1BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.StaticDataService.UnitTests", "tests\MFO.StaticDataService.UnitTests\MFO.StaticDataService.UnitTests.csproj", "{E3F4233D-EFF4-4968-8DB9-84FA6CF66E0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFO.LocalizationService.UnitTests", "tests\MFO.LocalizationService.UnitTests\MFO.LocalizationService.UnitTests.csproj", "{E3F4233D-EFF4-4968-8DB9-84FA6CF66E0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -119,5 +119,8 @@ Global
 		{5F5B2F7A-F548-46DA-A54B-A841CFEAE0FD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{E28DFF16-EC46-4A68-BE3F-D58BCB77B1BA} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{E3F4233D-EFF4-4968-8DB9-84FA6CF66E0B} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF239387-CD0B-4E42-A76C-DE9A38615753}
 	EndGlobalSection
 EndGlobal

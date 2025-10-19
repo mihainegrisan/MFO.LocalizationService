@@ -1,1 +1,1 @@
-# MFO.StaticDataService
+# MFO.LocalizationService

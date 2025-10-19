@@ -1,4 +1,4 @@
-﻿namespace MFO.StaticDataService.IntegrationTests;
+﻿namespace MFO.LocalizationService.UnitTests;
 
 public class Tests
 {
