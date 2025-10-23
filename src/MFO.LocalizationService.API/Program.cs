@@ -1,3 +1,5 @@
+using MFO.LocalizationService.Application;
+using MFO.LocalizationService.Application.Mapping;
 using MFO.LocalizationService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
@@ -8,6 +10,8 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
 });
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProfile()));
 
 builder.Services.AddDbContext<LocalizationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationContext")));
 var app = builder.Build();
