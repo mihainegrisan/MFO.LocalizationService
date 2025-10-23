@@ -4,6 +4,10 @@ using Microsoft.Extensions.Caching.Hybrid;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
+});
 
 builder.Services.AddDbContext<LocalizationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationContext")));
 var app = builder.Build();
