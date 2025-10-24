@@ -1,8 +1,17 @@
+using MFO.LocalizationService.Application;
+using MFO.LocalizationService.Application.Mapping;
 using MFO.LocalizationService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Hybrid;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
+});
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProfile()));
 
 builder.Services.AddDbContext<LocalizationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationContext")));
 var app = builder.Build();
@@ -15,28 +24,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+builder.Services.AddHybridCache(options =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    options.MaximumPayloadBytes = 1024 * 1024;
+    options.MaximumKeyLength = 1024;
+    options.DefaultEntryOptions = new HybridCacheEntryOptions
+    {
+        Expiration = TimeSpan.FromSeconds(20),
+        LocalCacheExpiration = TimeSpan.FromSeconds(20)
 };
+});
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+await app.RunAsync();
