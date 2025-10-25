@@ -1,6 +1,8 @@
-﻿namespace MFO.LocalizationService.Domain.Entities;
+﻿using MFO.LocalizationService.Domain.Common;
 
-public class Region
+namespace MFO.LocalizationService.Domain.Entities;
+
+public class Region : AuditableEntity
 {
     public required Guid RegionId { get; set; }
     public required string Code { get; set; }

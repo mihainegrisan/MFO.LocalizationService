@@ -1,6 +1,8 @@
-﻿namespace MFO.LocalizationService.Domain.Entities;
+﻿using MFO.LocalizationService.Domain.Common;
 
-public class ExchangeRate
+namespace MFO.LocalizationService.Domain.Entities;
+
+public class ExchangeRate : AuditableEntity
 {
     public required Guid Id { get; set; }
     public required string BaseCurrencyCode { get; set; }
