@@ -1,6 +1,8 @@
-﻿namespace MFO.LocalizationService.Domain.Entities;
+﻿using MFO.LocalizationService.Domain.Common;
 
-public class Currency
+namespace MFO.LocalizationService.Domain.Entities;
+
+public class Currency : AuditableEntity
 {
     public required Guid CurrencyId { get; set; }
     public required string IsoCode { get; set; }

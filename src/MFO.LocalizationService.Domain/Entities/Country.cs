@@ -1,6 +1,8 @@
-﻿namespace MFO.LocalizationService.Domain.Entities;
+﻿using MFO.LocalizationService.Domain.Common;
 
-public class Country
+namespace MFO.LocalizationService.Domain.Entities;
+
+public class Country : AuditableEntity
 {
     public required Guid CountryId { get; set; }
     public required string Iso2Code { get; set; }
