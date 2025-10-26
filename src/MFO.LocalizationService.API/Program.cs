@@ -1,3 +1,4 @@
+using MFO.LocalizationService.API.Middlewares;
 using MFO.LocalizationService.Application;
 using MFO.LocalizationService.Application.Mapping;
 using MFO.LocalizationService.Infrastructure.Persistence;
