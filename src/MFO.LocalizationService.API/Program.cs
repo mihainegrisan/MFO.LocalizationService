@@ -9,6 +9,9 @@ builder.Services.AddOpenApi();
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
+
+    // Add to the pipeline.
+    cfg.AddOpenBehavior(typeof(ValidationMiddleware<,>));
 });
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProfile()));
