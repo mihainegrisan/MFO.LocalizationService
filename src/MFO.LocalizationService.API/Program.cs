@@ -17,7 +17,12 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProfile()));
 
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<LocalizationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationContext")));
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
