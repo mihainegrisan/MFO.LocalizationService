@@ -4,9 +4,35 @@ using MFO.LocalizationService.Application.Mapping;
 using MFO.LocalizationService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
+using NSwag;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddOpenApiDocument(options =>
+{
+    options.PostProcess = document =>
+    {
+        document.Info = new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Localization Service API",
+            Description = "An ASP.NET Core Web API for managing Countries, Regions, Currencies, ExchangeRates etc.",
+            //TermsOfService = "https://example.com/terms",
+            Contact = new OpenApiContact
+            {
+                Name = "Mihai Negrisan",
+                Url = "https://github.com/mihainegrisan/MFO.LocalizationService"
+            },
+            //License = new OpenApiLicense
+            //{
+            //    Name = "Example License",
+            //    Url = "https://example.com/license"
+            //}
+        };
+    };
+});
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
@@ -41,7 +67,7 @@ builder.Services.AddHybridCache(options =>
     {
         Expiration = TimeSpan.FromSeconds(20),
         LocalCacheExpiration = TimeSpan.FromSeconds(20)
-};
+    };
 });
 
 await app.RunAsync();
