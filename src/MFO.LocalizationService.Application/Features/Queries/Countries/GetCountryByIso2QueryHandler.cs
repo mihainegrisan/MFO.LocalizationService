@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentResults;
 using MediatR;
-using MFO.LocalizationService.Application.DTOs;
+using MFO.LocalizationService.Application.DTOs.Country;
 using MFO.LocalizationService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;

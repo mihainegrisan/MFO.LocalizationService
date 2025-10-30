@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MFO.LocalizationService.Application.DTOs;
+using MFO.LocalizationService.Application.DTOs.Country;
 using MFO.LocalizationService.Application.Features.Queries.Countries;
 using Microsoft.AspNetCore.Mvc;
 
