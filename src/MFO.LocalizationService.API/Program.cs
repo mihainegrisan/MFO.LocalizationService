@@ -4,8 +4,13 @@ using Elastic.Ingest.Elasticsearch.DataStreams;
 using Elastic.Serilog.Sinks;
 using MFO.LocalizationService.API.Middlewares;
 using MFO.LocalizationService.Application;
+using MFO.LocalizationService.Application.Interfaces;
+using MFO.LocalizationService.Application.Interfaces.Repositories;
 using MFO.LocalizationService.Application.Mapping;
 using MFO.LocalizationService.Infrastructure.Persistence;
+using MFO.LocalizationService.Infrastructure.Repositories;
+using MFO.LocalizationService.Infrastructure.Services;
+using MFO.LocalizationService.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
 using NSwag;
@@ -50,7 +55,11 @@ builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProf
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<LocalizationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationContext")));
+
+builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+builder.Services.AddScoped<IUserContextProvider, UserContextProvider>();
+
+builder.Services.AddDbContext<LocalizationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationDbContext")));
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
