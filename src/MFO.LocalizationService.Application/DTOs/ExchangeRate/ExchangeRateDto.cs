@@ -10,6 +10,6 @@ public sealed record ExchangeRateDto
     public required decimal Rate { get; init; }
     public required DateTime EffectiveDate { get; init; }
 
-    public required CurrencyDto BaseCurrency { get; init; }
-    public required CurrencyDto TargetCurrency { get; init; }
+    public required CurrencyLightDto BaseCurrency { get; init; }
+    public required CurrencyLightDto TargetCurrency { get; init; }
 }
