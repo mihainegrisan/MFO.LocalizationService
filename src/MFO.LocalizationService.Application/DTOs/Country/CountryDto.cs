@@ -11,6 +11,6 @@ public sealed record CountryDto
     public required string Name { get; init; }
     public required string DefaultCurrencyCode { get; init; }
 
-    public required CurrencyDto DefaultCurrencyDto { get; init; }
-    public required ICollection<RegionDto> Regions { get; init; }
+    public required CurrencyDto DefaultCurrency { get; init; }
+    public required ICollection<RegionLightDto> Regions { get; init; }
 }

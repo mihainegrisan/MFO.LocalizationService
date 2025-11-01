@@ -8,5 +8,5 @@ public sealed record RegionDto
     public required string Code { get; init; }
     public required string Name { get; init; }
 
-    public CountryDto? CountryDto { get; init; }
+    public CountryDto? Country { get; init; }
 }

@@ -11,10 +11,22 @@ public class LocalizationServiceProfile : Profile
 {
     public LocalizationServiceProfile()
     {
+        #region Map Domain entities to DTOs
+
         CreateMap<Country, CountryDto>();
         CreateMap<Currency, CurrencyDto>();
         CreateMap<Region, RegionDto>();
         CreateMap<ExchangeRate, ExchangeRateDto>();
+
+        #endregion
+
+        #region Map Domain entities to light DTOs
+
+        CreateMap<Region, RegionLightDto>();
+        CreateMap<Currency, CurrencyLightDto>();
+
+        #endregion
+        
 
         CreateMap<CreateCountryDto, Country>();
     }

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MFO.LocalizationService.Infrastructure\MFO.LocalizationService.Infrastructure.csproj" />
+    <ProjectReference Include="..\MFO.LocalizationService.Domain\MFO.LocalizationService.Domain.csproj" />
   </ItemGroup>
 
 </Project>
