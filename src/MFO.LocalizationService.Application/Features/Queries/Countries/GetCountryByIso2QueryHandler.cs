@@ -2,8 +2,8 @@
 using FluentResults;
 using MediatR;
 using MFO.LocalizationService.Application.DTOs.Country;
-using MFO.LocalizationService.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+using MFO.LocalizationService.Application.Interfaces.Repositories;
+using MFO.LocalizationService.Domain.Errors;
 using Microsoft.Extensions.Caching.Hybrid;
 
 namespace MFO.LocalizationService.Application.Features.Queries.Countries;
@@ -12,37 +12,30 @@ public sealed record GetCountryByIso2Query(string Iso2Code) : IRequest<Result<Co
 
 public class GetCountryByIso2QueryHandler : IRequestHandler<GetCountryByIso2Query, Result<CountryDto>>
 {
-    private readonly LocalizationContext _db;
     private readonly HybridCache _cache;
-    private readonly IMapper _mapper;
+    private readonly IReadOnlyCountryRepository _readOnlyCountryRepository;
 
     public GetCountryByIso2QueryHandler(
-        LocalizationContext db,
         HybridCache cache,
-        IMapper mapper)
+        IMapper mapper,
+        IReadOnlyCountryRepository readOnlyCountryRepository)
     {
-        _db = db;
         _cache = cache;
-        _mapper = mapper;
+        _readOnlyCountryRepository = readOnlyCountryRepository;
     }
 
     public async Task<Result<CountryDto>> Handle(GetCountryByIso2Query request, CancellationToken cancellationToken)
     {
-        var country = await _cache.GetOrCreateAsync(
-            $"country:iso2:{request.Iso2Code}", // Unique key to the cache entry
-            async token =>
-            {
-                return await _db.Countries
-                    .Include(c => c.Regions)
-                    .FirstOrDefaultAsync(c => c.Iso2Code == request.Iso2Code, token);
-            },
+        var countryDto = await _cache.GetOrCreateAsync(
+            $"country:iso2:{request.Iso2Code}",
+            async token => await _readOnlyCountryRepository.GetCountryByIso2Code(request.Iso2Code, token),
             cancellationToken: cancellationToken);
 
-        if (country is null)
+        if (countryDto is null)
         {
-            return Result.Fail($"Country with ISO2 code {request.Iso2Code} not found.");
+            return Result.Fail(new NotFoundError($"Country with ISO2 code '{request.Iso2Code}' not found."));
         }
 
-        return Result.Ok(_mapper.Map<CountryDto>(country));
+        return Result.Ok(countryDto);
     }
 }
