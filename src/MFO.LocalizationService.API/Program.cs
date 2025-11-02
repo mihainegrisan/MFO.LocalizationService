@@ -59,6 +59,9 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddScoped<IUserContextProvider, UserContextProvider>();
 
+builder.Services.AddScoped<IReadOnlyCountryRepository, CountryReadOnlyRepository>();
+
+
 builder.Services.AddDbContext<LocalizationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationDbContext")));
 
 Log.Logger = new LoggerConfiguration()
