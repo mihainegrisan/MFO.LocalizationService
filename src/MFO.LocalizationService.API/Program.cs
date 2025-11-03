@@ -2,6 +2,7 @@ using Elastic.Channels;
 using Elastic.Ingest.Elasticsearch;
 using Elastic.Ingest.Elasticsearch.DataStreams;
 using Elastic.Serilog.Sinks;
+using FluentValidation;
 using MFO.LocalizationService.API.Middlewares;
 using MFO.LocalizationService.Application;
 using MFO.LocalizationService.Application.Interfaces;
@@ -50,6 +51,8 @@ builder.Services.AddMediatR(cfg =>
     // Add to the pipeline.
     cfg.AddOpenBehavior(typeof(ValidationMiddleware<,>));
 });
+
+builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new LocalizationServiceProfile()));
 
@@ -115,7 +118,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-builder.Services.AddHybridCache(options =>
+app.MapControllers();
+
 {
     options.MaximumPayloadBytes = 1024 * 1024;
     options.MaximumKeyLength = 1024;
