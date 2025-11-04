@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentResults;
+﻿using FluentResults;
 using MediatR;
 using MFO.LocalizationService.Application.DTOs.Country;
 using MFO.LocalizationService.Application.Interfaces.Repositories;
@@ -17,7 +16,6 @@ public class GetCountryByIso2QueryHandler : IRequestHandler<GetCountryByIso2Quer
 
     public GetCountryByIso2QueryHandler(
         HybridCache cache,
-        IMapper mapper,
         IReadOnlyCountryRepository readOnlyCountryRepository)
     {
         _cache = cache;
