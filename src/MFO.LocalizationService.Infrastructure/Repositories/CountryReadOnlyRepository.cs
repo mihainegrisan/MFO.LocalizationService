@@ -35,4 +35,12 @@ public class CountryReadOnlyRepository : IReadOnlyCountryRepository
             .ProjectTo<CountryDto>(_mapper.ConfigurationProvider)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<IReadOnlyList<CountryDto>> GetCountries(CancellationToken cancellationToken)
+    {
+        return await _db.Countries
+            .AsNoTracking()
+            .ProjectTo<CountryDto>(_mapper.ConfigurationProvider)
+            .ToListAsync(cancellationToken);
+    }
 }
