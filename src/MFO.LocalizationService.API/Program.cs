@@ -67,6 +67,17 @@ builder.Services.AddScoped<IReadOnlyCountryRepository, CountryReadOnlyRepository
 
 builder.Services.AddDbContext<LocalizationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalizationDbContext")));
 
+builder.Services.AddHybridCache(options =>
+{
+    options.MaximumPayloadBytes = 1024 * 1024;
+    options.MaximumKeyLength = 1024;
+    options.DefaultEntryOptions = new HybridCacheEntryOptions
+    {
+        Expiration = TimeSpan.FromSeconds(20),
+        LocalCacheExpiration = TimeSpan.FromSeconds(20)
+    };
+});
+
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .MinimumLevel.Information()
@@ -107,7 +118,6 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -120,14 +130,19 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
 {
-    options.MaximumPayloadBytes = 1024 * 1024;
-    options.MaximumKeyLength = 1024;
-    options.DefaultEntryOptions = new HybridCacheEntryOptions
-    {
-        Expiration = TimeSpan.FromSeconds(20),
-        LocalCacheExpiration = TimeSpan.FromSeconds(20)
-    };
-});
+    var context = scope.ServiceProvider.GetRequiredService<LocalizationDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+    await context.Database.MigrateAsync();
+    await CurrencySeeder.SeedAsync(context, logger);
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var config = scope.ServiceProvider.GetRequiredService<AutoMapper.IConfigurationProvider>();
+    config.AssertConfigurationIsValid();
+}
 
 await app.RunAsync();
