@@ -33,10 +33,10 @@ jobs:
             --store-password-in-clear-text
 
       - name: Restore dependencies
-        run: dotnet restore MFO.CatalogService.sln
+        run: dotnet restore MFO.LocalizationService.sln
 
       - name: Build
-        run: dotnet build MFO.CatalogService.sln --no-restore --configuration Release
+        run: dotnet build MFO.LocalizationService.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test MFO.CatalogService.sln --no-build --configuration Release --verbosity normal
+        run: dotnet test MFO.LocalizationService.sln --no-build --configuration Release --verbosity normal
